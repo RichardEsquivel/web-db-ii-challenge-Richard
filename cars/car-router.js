@@ -37,18 +37,19 @@ router.get('/:id', (req, res) => {
 
 
 router.post('/', (req, res) => {
-	const vehData = req.body;
-	Vehs.insert()
-		.insert(vehData)
-		.then(ids => {
-			db('fruits')
-				.where({ id: ids[0] })
-				.then(newVehData => {
-					res.status(201).json(newVehData);
-				});
+	const { model, make, vin, mileage, transmission, title } = req.body;
+	Vehs.insert({ model, make, vin, mileage, transmission, title })
+		.then(veh => {
+			if (veh) {
+				res.status(200).json(veh);
+			} else {
+				res.status(404).json({ Error: 'Failed to store vehicle data.' })
+			}
 		})
 		.catch(error => {
-			console.log('Update error', error);
-			res.status(500).json({ Error: 'Failed to store vehicle data.' });
-		});
+			console.log(error);
+			res.status(500).json({ Error: 'Failed to store vehicle data.' })
+		})
 })
+
+module.exports = router;
