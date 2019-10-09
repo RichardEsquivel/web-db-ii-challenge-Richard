@@ -1,7 +1,7 @@
 // Update with your config settings.
 
 module.exports = {
-
+	//create some defaults including directories for Development build environment
 	development: {
 		client: 'sqlite3',
 		connection: {
@@ -11,6 +11,9 @@ module.exports = {
 		useNullAsDefault: true,
 		migrations: {
 			directory: './data/migrations'
+		},
+		seeds: {
+			directory: './seeds/001-vehSeed.js'
 		}
 	},
 
